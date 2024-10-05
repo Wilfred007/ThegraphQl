@@ -1,0 +1,23 @@
+type Token @entity {
+  id: ID!
+  totalSupply: BigInt!
+  transfers: [Transfer!]! @derivedFrom(field: "token")
+}
+
+type User @entity {
+  id: ID!
+  balance: BigInt!
+  totalTransfersSent: [Transfer!]! @derivedFrom(field: "from")
+  totalTransfersRecieved: [Transfer!]! @derivedFrom(field: "to")
+}
+
+type Transfer @entity {
+  id: ID!
+  token: Token!
+  from: User!
+  to: User!
+  amount: BigInt!
+  blockNumber: BigInt!
+  transactionHash: Bytes!
+  timestamp: BigInt!
+}
